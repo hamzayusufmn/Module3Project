@@ -2,9 +2,10 @@
 # Author: Hamza Yusuf
 
 # our menu items
-flavors = {"vanilla", "carmel", "cookies n cream"}
+flavors = {"vanilla", "carmel", "cookies n cream", "strawberry","mint chocolate",  "chocolate"}
 toppings = {"cherries", "syrup", "whipping cream"}
-prices = {"scoop": 2.50, "toppings": 0.50}  # Ensure price keys match in dictionary
+cones =  ["cake cone", "sugar cone", "waffle cone"]
+prices = {"scoop": 2.50, "toppings": 0.50}  
 
 # Function to display menu
 def display_menu():
@@ -22,6 +23,18 @@ def display_menu():
     print("\nPrices")
     print(f"Scoops: ${prices['scoop']:.2f} each")
     print(f"Toppings: ${prices['toppings']:.2f} each")  
+
+
+
+
+def search_flavor():
+    # this allows for user to look for flacor 
+    favorite_flavor = input("\nEnter the flavor you're looking for: ").lower()
+    if fav in [f.lower() for f in flavors]:
+        print(f"{fav.title()} is available!")
+    else:
+        print(f"Sorry, {fav.title()} is not available.")
+
 
 # Function to get flavors
 def get_flavors():
@@ -45,6 +58,15 @@ def get_flavors():
             print("Sorry, that flavor is not available.")
     
     return num_scoops, chosen_flavors
+def get_cone():
+    
+    while True:
+        cone = input("\nEnter your cone type (cake cone, sugar cone, or waffle cone): ").lower()
+        if cone in [c.lower() for c in cones]:
+            return cone
+        print("Sorry, that cone type is not available. Please enter a valid cone type.")
+
+
 
 # Function to get toppings
 def get_toppings():
@@ -65,6 +87,11 @@ def calculate_total(num_scoops, num_toppings):
     scoops_cost = num_scoops * prices["scoop"]
     topping_cost = num_toppings * prices["toppings"]
     return scoops_cost + topping_cost
+    discount = 0
+    if subtotal > 10:
+        discount = subtotal * 0.10
+    total = subtotal - discount
+    return total, discount
 
 def print_receipt(num_scoops, chosen_flavors, chosen_toppings):
     print("\n=== Your ice cream order ===")
@@ -87,6 +114,7 @@ def main():
     display_menu()
     num_scoops, chosen_flavors = get_flavors()
     chosen_toppings = get_toppings()
+    
     
     # display the receipts
     print_receipt(num_scoops, chosen_flavors, chosen_toppings)
